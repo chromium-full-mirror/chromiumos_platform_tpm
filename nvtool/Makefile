@@ -6,8 +6,8 @@ TPM_NVTOOL = tpm-nvtool
 
 OSNAME = $(shell uname)
 
-CC = gcc
-CFLAGS = -Wall -g -I. -L/usr/local/lib
+CC ?= gcc
+CFLAGS += -Wall -g -I. -L/usr/local/lib
 LIBS = -ltspi
 
 ifeq ($(OSNAME), Darwin)
