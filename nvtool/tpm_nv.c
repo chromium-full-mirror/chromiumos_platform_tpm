@@ -72,7 +72,7 @@ tnv_print_nv_data_public(UINT32 nvIndex, UINT32 dataLength, BYTE* data)
         return FALSE;
     }
 
-    TNV_stdout("# NV Index %#08x\n", value32);
+    TNV_stdout("# NV Index %#010x\n", value32);
     cursor += sizeof(UINT32);
 
     // pcrInfoRead begin
