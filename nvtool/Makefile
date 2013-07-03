@@ -7,14 +7,14 @@ TPM_NVTOOL = tpm-nvtool
 OSNAME = $(shell uname)
 
 CC ?= gcc
-CFLAGS += -Wall -g -I. -L/usr/local/lib
+CPPFLAGS += -I.
+CFLAGS += -Wall -g
 LIBS = -ltspi
 
 ifeq ($(OSNAME), Darwin)
-ARCHS = -arch i386
+CPPFLAGS += -arch i386
+LDFLAGS += -arch i386
 LIBS += -liconv
-else
-ARCHS =
 endif
 
 TPM_NVTOOL_OBJS = main.o          \
@@ -27,13 +27,13 @@ pre-build:
 	@/bin/sh ./help/help-gen.sh
 
 $(TPM_NVTOOL): $(TPM_NVTOOL_OBJS)
-	$(CC) $(CFLAGS) $(ARCHS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 -include $(OBJS:.o=.d)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(ARCHS) $*.c -c -o $*.o
-	$(CC) $(CFLAGS) $(ARCHS) -MM $*.c > $*.d
+	$(CC) $(CFLAGS) $(CPPFLAGS) $*.c -c -o $*.o
+	$(CC) $(CFLAGS) $(CPPFLAGS) -MM $*.c > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
