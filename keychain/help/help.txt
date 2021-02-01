@@ -7,7 +7,7 @@ tpm-keychain is a command-line program for managing Trusted Platform Module
 Using tpm-keychain, you can create an on-disk keychain and add or remove TPM
 keys to it. The keys, which are usable only in conjunction with the specific
 TPM, can be used for signing or encryption. Optionally, each key can also be
-individually password protected. The keychain can have a master password as
+individually password protected. The keychain can have a main password as
 well. Moreover, at creation time, each key can optionally be bound to one or
 more Platform Configuration Registers (PCRs). Such a key will be usable only
 if the PCR values on the platform match those specified at creation time.
@@ -29,8 +29,8 @@ variable.
                   all zeros (the so called "well known secret" in the TSS
                   specification)
   KEYCHAIN_PASSWORD
-                  Specify the keychain's master password (by default, a newly
-                  created keychain will not use a master password)
+                  Specify the keychain's main password (by default, a newly
+                  created keychain will not use a main password)
 
   Note that although the keychain password or the individual key passwords may
   be changed, it is not permitted to start off with the keychain or a key
@@ -82,7 +82,7 @@ variable.
       [--srk_password SRK_PASSWORD] [--keychain_password KEYCHAIN_PASSWORD]
 
   As a special case, UUID can be the literal string "keychain", in which
-  case the keychain's master password will be changed.
+  case the keychain's main password will be changed.
 
 * Retrieving the Public Component of a Signing Key in a Form Usable by OpenSSH
 
